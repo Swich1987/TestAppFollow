@@ -3,7 +3,15 @@
 Использовался стек Django с PostgreSQL (БД стартует в отдельном контейнере, нужно убедится что порт 5432 не занят.)
 
 ## Запуск проекта
-Для запуска сервера достаточно
+Для запуска сервера достаточно склонировать проект
+
+`git clone https://github.com/Swich1987/TestAppFollow.git`
+
+перейти в его папку
+
+`cd TestAppFollow`
+
+Запустить его (возможно потребуются права администратора `sudo`):
 
 `docker-compose up`
 
@@ -18,7 +26,7 @@ http://127.0.0.1:8000/posts
 ## Публичная копия сервера
 Публичная копия сервера доступна по ссылке:
 
-http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8080/posts
+http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts
 
 
 ## Парсинг и обновление новостей с  [Hacker News](https://news.ycombinator.com)
