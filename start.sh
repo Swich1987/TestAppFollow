@@ -6,7 +6,7 @@ sleep 2
 python3 manage.py migrate
 echo "MIGRATION COMPLETED"
 sleep 2
-screen -d -m python3 parse_hackernews.py
+screen -dmS parsing  python3 loop_parsing.py
 echo "HACKERNEWS PARSED"
 sleep 2
 echo "START SERVER"

@@ -36,6 +36,8 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         allowed_params = ['order', 'offset', 'limit']
         allowed_order = ['title', 'id', 'created', 'url']
         for param in params:
+            if param.startswith('-') and len(param) > 1:
+                param = param[1:]
             if param not in allowed_params:
                 return error_response("wrong query parameter: " + param)
 
