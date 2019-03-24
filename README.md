@@ -20,7 +20,7 @@ http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8080/posts
 
 
 ## Парсинг и обновление новостей с  [Hacker News](https://news.ycombinator.com)
-Новости загружаются при старте контейнера, один раз в час, или их можно запустить с помощью команды:
+Новости загружаются при старте контейнера, один раз в минуту, или их можно запустить с помощью команды:
 
 `docker exec -it testappfollow_web_1 python3 parse_hackernews.py`
 
