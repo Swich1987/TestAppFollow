@@ -16,7 +16,7 @@ class LimitOffsetSettings(LimitOffsetPagination):
     max_limit = 25
     min_limit = 1
     min_offset = 1
-    max_offset = 50
+    max_offset = 25
 
     def get_paginated_response(self, data):
         return Response(data)
