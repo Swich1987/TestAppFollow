@@ -12,7 +12,8 @@ import requests
 import json
 
 
-URL = 'http://localhost:8000/posts'
+URL = 'http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts'
+# URL = 'http://127.0.0.1:8000/posts'
 SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 MISSING_PAGE_CODE = 404
@@ -23,7 +24,6 @@ MAX_LIMIT = 25
 MIN_LIMIT = 1
 
 CHECKED_OFFSET = 3
-MAX_OFFSET = 50
 MIN_OFFSET = 1
 
 REQUIRED_FIELDS = ['title', 'id', 'created', 'url']
@@ -94,9 +94,6 @@ class TestGoodRequests(unittest.TestCase):
         offseted_list = get_ordered_list(URL + '?offset=-' + str(CHECKED_OFFSET))
         self.assertEqual(etalon_list, offseted_list)
         self.assertEqual(etalon_list[0], offseted_list[0])
-        etalon_list = get_ordered_list(URL + '?offset=' + str(MAX_OFFSET))
-        offseted_list = get_ordered_list(URL + '?offset=100000')
-        self.assertEqual(etalon_list, offseted_list)
 
     def test_posts_limits(self):
         """Testing different limits."""
@@ -117,8 +114,8 @@ class TestGoodRequests(unittest.TestCase):
         etalon_list = get_ordered_list(URL + '?order=' + str(CHECKED_FIELD))
         checked_list = get_ordered_list(URL +
                                         '?order=' + str(CHECKED_FIELD) +
-                                        '&limit=' + str(CHECKED_LIMIT) +
-                                        '&offset=' + str(CHECKED_OFFSET))
+                                        '&offset=' + str(CHECKED_OFFSET) +
+                                        '&limit=' + str(CHECKED_LIMIT))
         self.assertEqual(etalon_list[CHECKED_OFFSET], checked_list[0])
         self.assertEqual(len(checked_list), CHECKED_LIMIT)
         self.assertTrue(self._is_ordered_by(checked_list,

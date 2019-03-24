@@ -17,6 +17,11 @@ INSERT_STR = ("INSERT INTO " + TABLE_NAME + "(created, title, url) " +
               "VALUES (current_timestamp, %(title)s, %(url)s) " +
               "ON CONFLICT DO NOTHING")
 
+TITLE_POSITION = 2
+URL_POSITION = 3
+
+UPDATE_SEC = 60
+
 
 def load_data_to_db(title_url_list):
     conn = psycopg2.connect(dbname="postgres", user="postgres",
@@ -25,16 +30,21 @@ def load_data_to_db(title_url_list):
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM " + TABLE_NAME)
         db_posts = cur.fetchall()
-    db_title = [db_post[2] for db_post in db_posts]
-    db_url = [db_post[3] for db_post in db_posts]
+    db_titles_list = [db_post[TITLE_POSITION] for db_post in db_posts]
+    db_urls_list = [db_post[URL_POSITION] for db_post in db_posts]
     for title, url in title_url_list:
-        if title not in db_title and url not in db_url:
+        if title not in db_titles_list and url not in db_urls_list:
             insert_dict["title"] = title
             insert_dict["url"] = url
             with conn.cursor() as cur:
                 cur.execute(INSERT_STR, insert_dict)
                 conn.commit()
                 print('Added to database title="%s" with url="%s"' % (title, url))
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM " + TABLE_NAME)
+            db_posts = cur.fetchall()
+        db_titles_list = [db_post[TITLE_POSITION] for db_post in db_posts]
+        db_urls_list = [db_post[URL_POSITION] for db_post in db_posts]
     conn.close()
 
 def parse_and_load():
@@ -48,11 +58,10 @@ def parse_and_load():
         title = tag.text
         url = tag.get('href')
         title_url_list.append((title, url))
-        # print(title, url)
     load_data_to_db(title_url_list)
 
 
 if __name__ == "__main__":
     while True:
         parse_and_load()
-        sleep(60)
+        sleep(UPDATE_SEC)
