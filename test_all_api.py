@@ -79,8 +79,9 @@ class TestGoodRequests(unittest.TestCase):
         """Testing ordering on all fields ascending and descending."""
         for field in REQUIRED_FIELDS:
             for ascending in (True, False):
+                minus = "-" if ascending else ""
                 with self.subTest(field=field, ascending=ascending):
-                    result_list = get_ordered_list(URL + '?order=' + field)
+                    result_list = get_ordered_list(URL + '?order=' + minus + field)
                     self.assertTrue(self._is_ordered_by(result_list,
                                     order_key=field,
                                     ascending=ascending))
