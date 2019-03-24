@@ -24,13 +24,10 @@ def get_title_url_column_number(cur):
     columns = cur.description
     i = 0
     for column in columns:
-        print(i, column.name)
         if column.name == 'title':
             title_index = i
-            print(title_index)
         if column.name == 'url':
             url_index = i
-            print(url_index)
         i += 1
     return (title_index, url_index)
 
