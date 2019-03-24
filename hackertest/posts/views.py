@@ -36,14 +36,15 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         allowed_params = ['order', 'offset', 'limit']
         allowed_order = ['title', 'id', 'created', 'url']
         for param in params:
-            if param.startswith('-') and len(param) > 1:
-                param = param[1:]
             if param not in allowed_params:
                 return error_response("wrong query parameter: " + param)
 
         if 'order' in params:
-            if params['order'] not in allowed_order:
-                return error_response("wrong query parameter: " + params['order'])
+            param = params['order']
+            if param.startswith('-') and len(param) > 1:
+                param = param[1:]
+            if param not in allowed_order:
+                return error_response("wrong query parameter: " + param)
             self.queryset = self.queryset.order_by(params['order'])
 
         return super().list(self, request, *args, **kwargs)
