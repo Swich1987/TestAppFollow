@@ -45,6 +45,6 @@ class PostsTestCase(TestCase):
 
     def test_response(self):
         """Creating responses for serializers."""
-        for i in range(len(RESPONSES)):
+        for i, response in enumerate(RESPONSES):
             with self.subTest(i=i):
-                self.assertDictContainsSubset(RESPONSES[i], dict(self.responses[i].data))
+                self.assertDictContainsSubset(response, dict(self.responses[i].data))

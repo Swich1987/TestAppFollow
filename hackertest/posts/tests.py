@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.utils import timezone
-from random import choice
+from rest_framework.response import Response
 
 from django.test import TestCase
+
 from .models import Post
 from .serializers import PostSerializer
 
-from rest_framework.response import Response
 
 RESPONSES = [
     {
@@ -47,6 +46,6 @@ class PostsTestCase(TestCase):
 
     def test_response(self):
         """Creating responses for serializers."""
-        for i in range(len(RESPONSES)):
+        for i, response in enumerate(RESPONSES):
             with self.subTest(i=i):
-                self.assertDictContainsSubset(RESPONSES[i], dict(self.responses[i].data))
+                self.assertDictContainsSubset(response, dict(self.responses[i].data))
