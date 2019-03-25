@@ -94,3 +94,9 @@ def parse_hackernews():
 def start_parsing():
     """Parse hackernews and load extracted data to db"""
     load_data_to_db(parse_hackernews())
+
+
+if __name__ == "__main__":
+    print('Start parsing...')
+    start_parsing()
+    print('Parsing completed.')
