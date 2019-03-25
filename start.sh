@@ -9,7 +9,7 @@ screen -dmS parsing  python3 loop_parsing.py
 echo "HACKERNEWS PARSED"
 sleep 4
 echo "START INNER TESTS"
-screen -dmS django_tests sleep 10 && python4 manage.py test
+screen -dmS testing bash -c " sleep 10 && python3 manage.py test ; exec sh"
 echo "INNER TESTS COMPLETED"
 echo "LAUNCHING SERVER"
 python3 manage.py runserver 0:8000
