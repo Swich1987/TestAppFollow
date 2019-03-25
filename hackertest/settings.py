@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['192.168.0.103', '146.120.179.200', '127.0.0.1', 'localhost',
         'ec2-18-218-151-219.us-east-2.compute.amazonaws.com']
 APPEND_SLASH = False
 
+ORDERING_PARAM = 'order'
 
 # Application definition
 

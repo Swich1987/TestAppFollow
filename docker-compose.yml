@@ -3,6 +3,7 @@ services:
     db:
         image: postgres
     web:
+        restart: always
         build: .
         command: bash start.sh
         volumes:

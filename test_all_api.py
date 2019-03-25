@@ -49,14 +49,19 @@ class TestGoodRequests(unittest.TestCase):
     """Test case for check good requests."""
 
     @staticmethod
-    def _is_ordered_by(result_list, order_key, ascending=True):
+    def _is_ordered_by(result_list, order_key, descending=False):
         """
         Check if result list of dict is ordered by order_key.
-        asceding check if ordered in ascending order.
+        desceding check if ordered in descending order.
         """
         result_list_of_order_key = [elem[order_key] for elem in result_list]
         copy_result_list_of_order_key = result_list_of_order_key.copy()
-        copy_result_list_of_order_key.sort()
+        copy_result_list_of_order_key.sort(reverse=descending)
+        if not result_list_of_order_key == copy_result_list_of_order_key:
+            print('Error checking order! descending =', descending)
+            print('NOT equal:')
+            print(result_list_of_order_key)
+            print(copy_result_list_of_order_key)
         return result_list_of_order_key == copy_result_list_of_order_key
 
     @staticmethod
@@ -78,13 +83,13 @@ class TestGoodRequests(unittest.TestCase):
     def test_posts_ordering(self):
         """Testing ordering on all fields ascending and descending."""
         for field in REQUIRED_FIELDS:
-            for ascending in (True, False):
-                minus = "-" if ascending else ""
-                with self.subTest(field=field, ascending=ascending):
+            for descending in (False, True):
+                minus = "-" if descending else ""
+                with self.subTest(field=field, descending=descending):
                     result_list = get_ordered_list(URL + '?order=' + minus + field)
                     self.assertTrue(self._is_ordered_by(result_list,
                                     order_key=field,
-                                    ascending=ascending))
+                                    descending=descending))
 
     def test_posts_offsets(self):
         """Testing different offsets."""

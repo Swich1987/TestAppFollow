@@ -15,9 +15,9 @@ DB_SETTINGS = {
 HACKER_NEWS_URL = "https://news.ycombinator.com/"
 TABLE_NAME = "posts_post"
 
-INSERT_STR = ("INSERT INTO " + TABLE_NAME + "(created, title, url) " +
-              "VALUES (current_timestamp, %(title)s, %(url)s) " +
-              "ON CONFLICT DO NOTHING")
+INSERT_STR = ("INSERT INTO " + TABLE_NAME + "(created, title," +
+              "url) " + "VALUES (current_timestamp, %(title)s," +
+              "%(url)s) ON CONFLICT DO NOTHING")
 
 
 def get_title_url_column_number(cur):
@@ -32,11 +32,19 @@ def get_title_url_column_number(cur):
     return (title_index, url_index)
 
 
+def init_database(connection):
+    with connection.cursor() as cur:
+        cur.execute('alter table %s alter url type text COLLATE ucs_basic;' % TABLE_NAME)
+        cur.execute('alter table %s alter title type text COLLATE ucs_basic;' % TABLE_NAME)
+
+
 def get_data_from_db(connection):
     with connection.cursor() as cur:
         cur.execute("SELECT * FROM " + TABLE_NAME)
         db_posts = cur.fetchall()
         title_index, url_index = get_title_url_column_number(cur)
+    if not db_posts:
+        init_database(connection)
     titles_list = [db_post[title_index] for db_post in db_posts]
     urls_list = [db_post[url_index] for db_post in db_posts]
     return titles_list, urls_list
