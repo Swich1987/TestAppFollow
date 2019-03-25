@@ -1,5 +1,5 @@
 bs4==0.0.1
 psycopg2-binary==2.7.5
-Django==2.1.5
+Django==2.1.7
 djangorestframework==3.8.2
-requests==2.18.4
+requests==2.21.0
