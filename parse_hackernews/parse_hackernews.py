@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Just parse hacker news and load them to Postgres
 """
@@ -23,13 +24,15 @@ INSERT_STR = ("INSERT INTO " + TABLE_NAME + "(created, title," +
 def get_title_url_column_number(cur):
     columns = cur.description
     i = 0
+    title_index = 1
+    url_index = 2
     for column in columns:
         if column.name == 'title':
             title_index = i
         if column.name == 'url':
             url_index = i
         i += 1
-    return (title_index, url_index)
+    return title_index, url_index
 
 
 def init_database(connection):
@@ -50,7 +53,7 @@ def get_data_from_db(connection):
     return titles_list, urls_list
 
 
-def remove_excisted_data(title_url_list, connection):
+def remove_existed_data(title_url_list, connection):
     print('Start clearing data from already saved result')
     print('RAW DATA =', title_url_list)
     new_title_url_list = []
@@ -67,7 +70,7 @@ def remove_excisted_data(title_url_list, connection):
 
 def load_data_to_db(title_url_raw_list):
     connection = psycopg2.connect(**DB_SETTINGS)
-    title_url_list = remove_excisted_data(title_url_raw_list, connection)
+    title_url_list = remove_existed_data(title_url_raw_list, connection)
     for title, url in title_url_list:
         with connection.cursor() as cur:
             cur.execute(INSERT_STR, {'title': title, 'url': url})

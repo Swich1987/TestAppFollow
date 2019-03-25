@@ -1,16 +1,11 @@
+# -*- coding: utf-8 -*-
 """
 Testing our API.
 """
-import sys
-import random
-import string
 
-import csv
 import unittest
 
 import requests
-import json
-
 
 URL = 'http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts'
 # URL = 'http://127.0.0.1:8000/posts'
@@ -35,6 +30,7 @@ WRONG_QUERY_PARAMETERS = ['order=url1',
                           'offset=10&limit=10&order=title&some=1']
 WRONG_JSON = "{'error': 'wrong query parameter: "
 
+
 def get_ordered_list(url):
     """Request url and return ordered dict."""
     response = requests.get(url)
@@ -44,6 +40,7 @@ def get_ordered_list(url):
     except Exception:
         pass
     return response_json
+
 
 class TestGoodRequests(unittest.TestCase):
     """Test case for check good requests."""
@@ -88,8 +85,8 @@ class TestGoodRequests(unittest.TestCase):
                 with self.subTest(field=field, descending=descending):
                     result_list = get_ordered_list(URL + '?order=' + minus + field)
                     self.assertTrue(self._is_ordered_by(result_list,
-                                    order_key=field,
-                                    descending=descending))
+                                                        order_key=field,
+                                                        descending=descending))
 
     def test_posts_offsets(self):
         """Testing different offsets."""
@@ -126,6 +123,7 @@ class TestGoodRequests(unittest.TestCase):
         self.assertEqual(len(checked_list), CHECKED_LIMIT)
         self.assertTrue(self._is_ordered_by(checked_list,
                                             order_key=CHECKED_FIELD))
+
 
 class TestWrongRequests(unittest.TestCase):
     """Test case for check wrong requests."""

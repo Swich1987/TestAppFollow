@@ -1,12 +1,10 @@
-from django.utils import timezone
-from random import choice
+# -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from hackertest.posts.models import Post
-from hackertest.posts.serializers import PostSerializer
-
 from rest_framework.response import Response
 
+from hackertest.posts.models import Post
+from hackertest.posts.serializers import PostSerializer
 
 RESPONSES = [
     {
@@ -20,6 +18,7 @@ RESPONSES = [
         'created': '2019-03-23T19:44:53.955272Z'
     }
 ]
+
 
 class PostsTestCase(TestCase):
     def setUp(self):

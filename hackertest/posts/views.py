@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import HttpResponseBadRequest, HttpResponseNotFound
 from rest_framework import viewsets, filters
 from rest_framework.pagination import LimitOffsetPagination

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Just parse hacker news and load them to Postgres
 """
