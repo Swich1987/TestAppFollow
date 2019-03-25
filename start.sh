@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 sleep 5
 python3 manage.py makemigrations posts
 echo "MIGRATION CREATED"
-sleep 2
 python3 manage.py migrate
 echo "MIGRATION COMPLETED"
-sleep 2
 screen -dmS parsing  python3 loop_parsing.py
 echo "HACKERNEWS PARSED"
-sleep 2
-echo "START SERVER"
+sleep 4
+echo "START INNER TESTS"
+python3 manage.py test
+echo "INNER TESTS COMPLETED"
+echo "LAUNCHING SERVER"
 python3 manage.py runserver 0:8000
