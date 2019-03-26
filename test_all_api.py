@@ -8,7 +8,7 @@ import unittest
 import requests
 
 URL = 'http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts'
-# URL = 'http://127.0.0.1:8000/posts'
+
 SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 MISSING_PAGE_CODE = 404
