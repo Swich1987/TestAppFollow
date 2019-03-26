@@ -3,8 +3,9 @@ from django.http import HttpResponseBadRequest
 from rest_framework import viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
-from .serializers import PostSerializer
+
 from .models import Post
+from .serializers import PostSerializer
 
 
 def error_response(error_str):
@@ -15,8 +16,6 @@ def error_response(error_str):
 class LimitOffsetSettings(LimitOffsetPagination):
     default_limit = 5
     max_limit = 25
-    min_limit = 1
-    min_offset = 1
 
     def get_paginated_response(self, data):
         return Response(data)
@@ -45,7 +44,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
             if order.startswith('-') and len(order) > 1:
                 order = order[1:]
             if order not in allowed_order:
-                return error_response("wrong query parameter: " + order)
+                return error_response("wrong query parameter: " + params['order'])
             self.queryset = self.queryset.order_by(params['order'])
 
         return super().list(self, request, *args, **kwargs)

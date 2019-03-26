@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from rest_framework.response import Response
-
 from django.test import TestCase
+from rest_framework.response import Response
 
 from .models import Post
 from .serializers import PostSerializer
-
 
 RESPONSES = [
     {

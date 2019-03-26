@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Just parse hacker news and load them to Postgres
+Looping hackernews update every UPDATE_SEC secounds.
 """
 
 from time import sleep
