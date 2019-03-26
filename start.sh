@@ -7,9 +7,14 @@ python3 manage.py migrate
 echo "MIGRATION COMPLETED"
 screen -dmS parsing  python3 loop_parsing.py
 echo "HACKERNEWS PARSED"
-sleep 4
+echo "LAUNCHING SERVER FOR TESTS"
+screen -dmS django python3 manage.py runserver 0:8000
+sleep 1
+echo "SERVER FOR TESTS LAUNCHED"
 echo "START INNER TESTS"
-screen -dmS testing bash -c " sleep 10 && python3 manage.py test ; exec sh"
+python3 manage.py test
 echo "INNER TESTS COMPLETED"
+pkill screen
+screen -dmS parsing  python3 loop_parsing.py
 echo "LAUNCHING SERVER"
 python3 manage.py runserver 0:8000
