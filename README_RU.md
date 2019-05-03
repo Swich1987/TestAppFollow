@@ -14,8 +14,13 @@
 
 После запуска сервер доступен по ссылке:
 
-http://127.0.0.1:8000/posts
+<http://127.0.0.1:8000/posts>
 
+Примеры запросов:
+- <http://127.0.0.1:8000/posts?order=-id>
+- <http://127.0.0.1:8000/posts?limit=25>
+- <http://127.0.0.1:8000/posts?offset=10>
+- <http://127.0.0.1:8000/posts?order=-id&limit=25&offset=10>
 
 Для запуска удаленного сервера, на который нужен доступ с других машин, нужно добавить адрес этого сервера в параметр `ALLOWED_HOSTS`, находящийся в файле `settings.py`.
 
@@ -23,7 +28,13 @@ http://127.0.0.1:8000/posts
 ## Публичная копия сервера
 Публичная копия сервера доступна по ссылке:
 
-http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts
+<http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts>
+
+Примеры запросов:
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?order=-id>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?limit=25>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?offset=10>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?order=-id&limit=25&offset=10>
 
 
 ## Парсинг и обновление новостей с  [Hacker News](https://news.ycombinator.com)

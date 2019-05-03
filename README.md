@@ -16,24 +16,33 @@ To start the local server:
     docker-compose up
 
 At startup a task will be created to download news from hackernews, which will be executed 1 time per minute. You can adjust the update interval in the `loop_parsing.py`.
-Also, internal Django tests are launched before starting the server
+Also, internal Django tests are launched before starting the server.
 
-After the launch local server is available at the link:
+After the launch local server is available at the link <http://127.0.0.1:8000/posts>.
+    
+some more requests example:
 
-    http://127.0.0.1:8000/posts
+- <http://127.0.0.1:8000/posts?order=-id>
+- <http://127.0.0.1:8000/posts?limit=25>
+- <http://127.0.0.1:8000/posts?offset=10>
+- <http://127.0.0.1:8000/posts?order=-id&limit=25&offset=10>
 
 
 To launch remote server, which should be available publicly, you need to add the address of this server to the parameter `ALLOWED_HOSTS`, located in the file `settings.py`.
 
 
 ## Public server
-The public server is available at the link:
+The public server should be available at the link <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts>
 
-    http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts
+some more requests example:
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?order=-id>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?limit=25>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?offset=10>
+- <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts?order=-id&limit=25&offset=10>
 
 
 ## Parsing and updating news from [Hacker News](https://news.ycombinator.com)
-News is loaded first at the start of the container and then once every minute. They can be started manually when the container is running using next command:
+News is loaded first at the start of the container and then once every minute. They can be loaded manually when the container is running using next command:
 
     docker exec -it testappfollow_web_1 python3 ./parse_hackernews/parse_hackernews.py
 
@@ -45,21 +54,21 @@ To run the integration API tests of all endpoints, run the next command:
 
     python3 -m unittest -v test_all_api.py
 
-These tests check all possible types of requests. Include those mentioned in questions to the task.
+These tests check all possible types of requests. Including requests from the questions in the task.
 In the file `test_all_api.pu` is located URL parameter, with which you can set the server address for testing.
 
 
 ## Answers for questions
 - Client requests a non-existent attribute in sorting
-- Will be returned error 404 with given wrong attribute
+  - Will be returned error 404 with given wrong attribute
 
 
 - The limit is too big
-- Will be cut to maximum allowed
+  - Will be cut to maximum allowed
 
 
 - The limit is negative
-- Will be set to minimum
+  - Will be set to minimum
 
 
 A hyphen "-" in front of given attribute indicates descending sorting order. For example:
