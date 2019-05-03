@@ -1,61 +1,69 @@
-# Решение тестового задания.
-## Выбранные стеки
-Использовался стек Django с PostgreSQL (БД стартует в отдельном контейнере, нужно убедится что порт 5432 не занят.)
+# Test task solution
+## Test task
+[Original Test task](https://github.com/Swich1987/TestAppFollow/blob/master/TestTask.md)
+## Russian:
+[Russian README](https://github.com/Swich1987/TestAppFollow/blob/master/README_RU.md)
 
-## Запуск проекта
-Для запуска локального сервера:
+[Russian test task](https://github.com/Swich1987/TestAppFollow/blob/master/TestTaskRU.md)
+## Selected Stacks
+Django with PostgreSQL (starts in a separate container, port 5432 should be available)
 
-```
-git clone https://github.com/Swich1987/TestAppFollow.git
-cd TestAppFollow
-docker-compose up
-```
+## Running the application
+To start the local server:
 
-При запуске будет создана задача по загрузке новостей с hackernews, которая будет выполняться 1 раз в минуту. Настроить время обновлений можно в файле `loop_parsing.py`.
-Также, перед запуском сервера запускаются внутрение тесты Django из файла `tests.py`
+    git clone https://github.com/Swich1987/TestAppFollow.git
+    cd TestAppFollow
+    docker-compose up
 
-После запуска сервер доступен по ссылке:
+At startup a task will be created to download news from hackernews, which will be executed 1 time per minute. You can adjust the update interval in the `loop_parsing.py`.
+Also, internal Django tests are launched before starting the server
 
-http://127.0.0.1:8000/posts
+After the launch local server is available at the link:
 
-
-Для запуска удаленного сервера, на который нужен доступ с других машин, нужно добавить адрес этого сервера в параметр `ALLOWED_HOSTS`, находящийся в файле `settings.py`.
-
-
-## Публичная копия сервера
-Публичная копия сервера доступна по ссылке:
-
-http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts
+    http://127.0.0.1:8000/posts
 
 
-## Парсинг и обновление новостей с  [Hacker News](https://news.ycombinator.com)
-Новости загружаются сначала при старте контейнера и далее один раз каждую минуту. Их можно запустить вручную при запущенном контейнере с помощью команды:
-
-`docker exec -it testappfollow_web_1 python3 ./parse_hackernews/parse_hackernews.py`
-
-где `testappfollow_web_1` - имя запущенного контейнера.
+To launch remote server, which should be available publicly, you need to add the address of this server to the parameter `ALLOWED_HOSTS`, located in the file `settings.py`.
 
 
-## Интеграционные API тесты 
-Для запуска интеграционных API тестов всех ендпоинтов выполнить в командной строке:
+## Public server
+The public server is available at the link:
 
-`python3 -m unittest -v test_all_api.py`
-
-Эти тесты проверяют все возможные виды запросов. В том числе на те, что упомянуты в вопросах к заданию.
-В самом файле `test_all_api.pu` есть параметр URL, с помощью которого можно задавать адрес сервера для тестирования.
+    http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts
 
 
-## Ответы на вопросы
-Что должно произойти, если клиент передал несуществующий атрибут для сортировки.
-- вернется ошибка 400 с неправильным атрибутом
+## Parsing and updating news from [Hacker News](https://news.ycombinator.com)
+News is loaded first at the start of the container and then once every minute. They can be started manually when the container is running using next command:
+
+    docker exec -it testappfollow_web_1 python3 ./parse_hackernews/parse_hackernews.py
+
+where `testappfollow_web_1` is the name of running container.
 
 
-Или параметр limit слишком большой? 
-- будет урезан до максимально допустимого
+## Integration API test
+To run the integration API tests of all endpoints, run the next command:
+
+    python3 -m unittest -v test_all_api.py
+
+These tests check all possible types of requests. Include those mentioned in questions to the task.
+In the file `test_all_api.pu` is located URL parameter, with which you can set the server address for testing.
 
 
-А может быть вообще отрицательный? 
-- будет равен минимально допустимому
+## Answers for questions
+- Client requests a non-existent attribute in sorting
+- Will be returned error 404 with given wrong attribute
 
 
-Сортировка возможна в обратном направлении с добавлением знака "-". Если ввести несуществующий адрес, например http://127.0.0.1:8000/, то вернется ошибка 404.
+- The limit is too big
+- Will be cut to maximum allowed
+
+
+- The limit is negative
+- Will be set to minimum
+
+
+A hyphen "-" in front of given attribute indicates descending sorting order. For example:
+
+    curl -X GET http://localhost:8000/posts?order=-title
+
+If you enter a non-existent address, for example http://127.0.0.1:8000/, will be returned error 404.
