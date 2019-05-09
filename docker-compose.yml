@@ -5,7 +5,7 @@ services:
     web:
         restart: always
         build: .
-        command: bash start.sh
+        command: ./start.sh
         volumes:
             - .:/hackertest
         ports:

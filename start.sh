@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
+echo "WAITING 5 SEC FOR DB TO RUN..."
 sleep 5
 python3 manage.py makemigrations posts
 echo "MIGRATION CREATED"
