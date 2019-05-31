@@ -4,8 +4,9 @@ Testing our API.
 """
 
 import unittest
-
 import requests
+
+from simplejson import JSONDecodeError
 
 URL = 'http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts'
 
@@ -37,8 +38,8 @@ def get_ordered_list(url):
     response_json = {}
     try:
         response_json = response.json()
-    except Exception:
-        pass
+    except JSONDecodeError as e:
+        print('Error! %s' % e)
     return response_json
 
 

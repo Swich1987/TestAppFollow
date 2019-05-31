@@ -2,9 +2,11 @@
 """
 Just parse hacker news and load them to Postgres
 """
+import datetime
 import psycopg2
 import requests
 from bs4 import BeautifulSoup
+
 
 DB_SETTINGS = {
     "dbname": "postgres",
@@ -24,7 +26,9 @@ INSERT_STR = ("INSERT INTO " + TABLE_NAME + "(created, title," +
 
 def start_parsing():
     """Parse hackernews and load extracted data to db"""
+    print('==Parsing started at %s!==' % datetime.datetime.now())
     load_data_to_db(parse_hackernews())
+    print('==Parsing finished!==')
 
 
 def parse_hackernews():
@@ -54,7 +58,7 @@ def load_data_to_db(title_url_raw_list):
 
 
 def remove_existed_data(title_url_list, connection):
-    print('Start clearing data from already saved result.')
+    print('Clearing data from already saved result...')
     new_title_url_list = []
     titles_list, urls_list = get_data_from_db(connection)
     for title, url in title_url_list:
@@ -64,10 +68,10 @@ def remove_existed_data(title_url_list, connection):
             continue
         new_title_url_list.append((title, url))
     if new_title_url_list:
-        print('Parsed raw data =', title_url_list)
-        print('Cleared data from already saved result =', new_title_url_list)
+        print('Cleared new data:\n', new_title_url_list)
     else:
         print("Nothing new.")
+    print('Clearing completed.')
     return new_title_url_list
 
 
@@ -105,6 +109,4 @@ def init_database(connection):
 
 
 if __name__ == "__main__":
-    print('Start parsing...')
     start_parsing()
-    print('Parsing completed.')

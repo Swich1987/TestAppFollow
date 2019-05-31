@@ -11,7 +11,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import configparser
 import os
+import sys
+
+
+# Read Django configs from settings.ini
+current_directory = sys.path[0]
+path_to_settings = os.path.join(current_directory, 'hackertest', 'settings.ini')
+
+config = configparser.ConfigParser()
+config.read(path_to_settings)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +35,7 @@ SECRET_KEY = '37!insj4d%a*u$wjz8j13s6^4c077sw3xch9!-gm6pht%g!20@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 'ec2-18-218-151-219.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS = config['DJANGO']['ALLOWED_HOSTS']
 
 ORDERING_PARAM = 'order'
 

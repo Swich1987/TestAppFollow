@@ -1,6 +1,6 @@
 psycopg2-binary==2.7.5
 bs4==0.0.1
 Django==2.1.7
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 requests==2.21.0
 celery==4.3.0

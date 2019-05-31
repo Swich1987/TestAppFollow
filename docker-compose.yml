@@ -1,14 +1,36 @@
 version: '2'
 services:
+    rabbitmq:
+       image: rabbitmq:3-management-alpine
+       hostname: myrabbit
+       ports:
+         - 5672:5672
+         - 8080:15672
+       environment:
+         - RABBITMQ_DEFAULT_USER=myuser
+         - RABBITMQ_DEFAULT_PASS=mypass
+         - RABBITMQ_DEFAULT_VHOST=myhost
+       restart: always
     db:
-        image: postgres
+        image: postgres:11.2-alpine
     web:
         restart: always
         build: .
-        command: ./start.sh
+        command: ./start_web.sh
         volumes:
-            - .:/hackertest
+            - .:/testappfollow_code
         ports:
             - "8000:8000"
         depends_on:
             - db
+    celery:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: ./start_celery.sh
+        volumes:
+            - .:/testappfollow_code
+        depends_on:
+            - web
+            - rabbitmq
+        restart: always

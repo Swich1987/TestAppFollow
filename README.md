@@ -15,7 +15,7 @@ To start the local server:
     cd TestAppFollow
     docker-compose up
 
-At startup a task will be created to download news from hackernews, which will be executed 1 time per minute. You can adjust the update interval in the `loop_parsing.py`.
+At startup a task will be created to download news from hackernews, which will be executed 1 time per minute. You can adjust the update interval in the `settings.ini`, default is 30 seconds.
 Also, internal Django tests are launched before starting the server.
 
 After the launch local server is available at the link <http://127.0.0.1:8000/posts>.
@@ -28,7 +28,7 @@ some more requests example:
 - <http://127.0.0.1:8000/posts?order=-id&limit=25&offset=10>
 
 
-To launch remote server, which should be available publicly, you need to add the address of this server to the parameter `ALLOWED_HOSTS`, located in the file `settings.py`.
+To launch remote server, which should be available publicly, you need to add the address of this server to the parameter `ALLOWED_HOSTS`, located in the file `settings.ini`.
 
 
 ## Public server
