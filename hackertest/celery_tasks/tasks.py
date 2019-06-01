@@ -8,6 +8,6 @@ def setup_periodic_tasks(sender, **kwargs):
                              name='Celery parse hackernews task')
 
 
-@app.task
+@app.task(soft_time_limit=300)
 def parse_hackernews_task():
     start_parsing()

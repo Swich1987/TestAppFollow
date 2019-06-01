@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import configparser
 import os
 import sys
+import json
 
 
 # Read Django configs from settings.ini
@@ -35,7 +36,7 @@ SECRET_KEY = '37!insj4d%a*u$wjz8j13s6^4c077sw3xch9!-gm6pht%g!20@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = config['DJANGO']['ALLOWED_HOSTS']
+ALLOWED_HOSTS = json.loads(config['DJANGO']['ALLOWED_HOSTS'])
 
 ORDERING_PARAM = 'order'
 
