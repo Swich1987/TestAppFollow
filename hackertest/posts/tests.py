@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Django test for posts API."""
 from django.test import TestCase
 from rest_framework.response import Response
 
@@ -20,7 +21,15 @@ RESPONSES = [
 
 
 class PostsTestCase(TestCase):
+    """Django TestCase class to test all endpoint for posts application.
+
+    Create Post and PostSerializer objects using response from RESPONSES.
+    """
+
     def setUp(self):
+        """Setup the responses which are necessary to RESPONSES and save them
+        in self.responses for test in test_response.
+        """
         posts = []
         serializers = []
         self.responses = []

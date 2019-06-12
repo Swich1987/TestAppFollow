@@ -4,3 +4,4 @@ Django==2.1.7
 djangorestframework==3.9.1
 requests==2.21.0
 celery==4.3.0
+simplejson==3.16.0

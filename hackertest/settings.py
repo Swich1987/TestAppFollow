@@ -12,10 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import configparser
+import json
 import os
 import sys
-import json
-
 
 # Read Django configs from settings.ini
 current_directory = sys.path[0]
@@ -53,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'hackertest.posts',
+    'hackertest.parsing',
 ]
 
 MIDDLEWARE = [
