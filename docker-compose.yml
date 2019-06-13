@@ -32,4 +32,6 @@ services:
       - .:/testappfollow_code
     depends_on:
       - rabbitmq
+    environment:
+      - DJANGO_SETTINGS_MODULE=hackertest.settings
     restart: always
