@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ Celery settings module.
 
 All settings are extracted from settings.ini

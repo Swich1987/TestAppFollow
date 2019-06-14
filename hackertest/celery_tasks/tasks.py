@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Just describe her celery's task.
 
 here is two self-described modules:
