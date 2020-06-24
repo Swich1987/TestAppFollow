@@ -32,7 +32,7 @@ some more requests example:
 To launch remote server, which should be available publicly, you need to add the address of this server to the parameter `ALLOWED_HOSTS`, located in the file `settings.ini`.
 
 
-## Public server
+## Public server (outdated)
 The public server should be available at the link <http://ec2-18-218-151-219.us-east-2.compute.amazonaws.com:8000/posts>
 
 some more requests example:
