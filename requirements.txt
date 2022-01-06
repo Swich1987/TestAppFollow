@@ -3,5 +3,5 @@ bs4==0.0.1
 Django==2.2.20
 djangorestframework==3.11.2
 requests==2.21.0
-celery==4.3.0
+celery==5.2.2
 simplejson==3.16.0
